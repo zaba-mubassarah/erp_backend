@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import issueRoutes from "./routes/issues.js";
 import usersRoute from "./routes/users.js";
 import signUpRoutes from "./routes/signUp.js";
-
+import loginRoutes from "./routes/login.js";
 const app = express();
 dotenv.config();
 import cors from "cors";
@@ -22,9 +22,8 @@ mongoose
 
 app.use("/issues", cors(), issueRoutes);
 app.use("/users", cors(), usersRoute);
-
-app.use("/", cors(), signUpRoutes);
-
+app.use("/signup", cors(), signUpRoutes);
+app.use("/login", cors(), loginRoutes);
 app.listen(PORT, () =>
   console.log(`Server running on port: http://localhost:${PORT}`)
 );

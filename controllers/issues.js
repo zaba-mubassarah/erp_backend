@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import mongoose from "mongoose";
 
 const issuSchema = mongoose.Schema({

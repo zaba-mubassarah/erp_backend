@@ -7,16 +7,14 @@ import {
   insertManysignUpUsers,
   deletesignUpUsers,
   updatesignUpUsers,
-  loginRequest,
 } from "../controllers/signUp.js";
 const router = express.Router();
 
-router.get("/signup", getsignUpUsers);
-router.get("/signup/:id", getsignUpUsersById);
-router.post("/signup", savesignUpUsers);
-router.post("/login", loginRequest);
-router.post("/signup/all", insertManysignUpUsers);
-router.delete("/signup/:id", deletesignUpUsers);
-router.put("/signup/:id", updatesignUpUsers);
+router.get("", getsignUpUsers);
+router.get("/:id", getsignUpUsersById);
+router.post("", savesignUpUsers);
+router.post("/all", insertManysignUpUsers);
+router.delete("/:id", deletesignUpUsers);
+router.put("/:id", updatesignUpUsers);
 
 export default router;

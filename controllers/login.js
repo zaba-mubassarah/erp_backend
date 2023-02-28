@@ -1,35 +1,25 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-
-const loginSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-
-  password: {
-    type: String,
-    required: true,
-  },
-});
-
-const loginModel = new mongoose.model("loginData", loginSchema);
+import {
+  signUpModel
+} from "../controllers/signUp.js";
+import jwt from "jsonwebtoken";
 
 export const loginRequest = async (req, res) => {
   try {
     const user = await signUpModel.find({ name: req.body.name });
+    console.log("user",user);
     if (user) {
       console.log(req.body.password, user[0].password);
       const isValidPassword = await bcrypt.compare(
         req.body.password,
         user[0].password
       );
-      console.log("isValidPassword", isValidPassword);
       if (isValidPassword) {
         const token = jwt.sign({ name: user[0].name }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        res.status(500).json({
+        console.log("token",token)
+        res.status(200).json({
           token: token,
           message: "Login Succesful",
         });

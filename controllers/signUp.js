@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
-const signUpSchema = mongoose.Schema({
+export const signUpSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -16,7 +15,7 @@ const signUpSchema = mongoose.Schema({
     required: true,
   },
 });
-const signUpModel = new mongoose.model("signUpUsers", signUpSchema);
+export const signUpModel = new mongoose.model("signUpUsers", signUpSchema);
 
 export const getsignUpUsers = async (req, res) => {
   await signUpModel
@@ -127,37 +126,4 @@ export const updatesignUpUsers = async (req, res) => {
     )
     .clone();
 };
-export const loginRequest = async (req, res) => {
-  try {
-    const user = await signUpModel.find({ name: req.body.name });
-    if (user) {
-      console.log(req.body.password, user[0].password);
-      const isValidPassword = await bcrypt.compare(
-        req.body.password,
-        user[0].password
-      );
-      console.log("isValidPassword", isValidPassword);
-      if (isValidPassword) {
-        const token = jwt.sign({ name: user[0].name }, process.env.JWT_SECRET, {
-          expiresIn: "1h",
-        });
-        res.status(500).json({
-          token: token,
-          message: "Login Succesful",
-        });
-      } else {
-        res.status(500).json({
-          error: "Login failed",
-        });
-      }
-    } else {
-      res.status(500).json({
-        error: "Login failed",
-      });
-    }
-  } catch {
-    res.status(500).json({
-      error: "Login failed",
-    });
-  }
-};
+

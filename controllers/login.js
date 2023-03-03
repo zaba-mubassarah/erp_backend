@@ -20,6 +20,7 @@ export const loginRequest = async (req, res) => {
         });
         console.log("token",token)
         res.status(200).json({
+          name: req.body.name,
           token: token,
           message: "Login Succesful",
         });

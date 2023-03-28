@@ -6,22 +6,18 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  age: {
-    type: Number,
+  phone: {
+    type: String,
     required: false,
+  },
+  email: {
+    type: String,
+    required: true,
   },
   address: {
     type: String,
     required: true,
-  },
-  f_name: {
-    type: String,
-    required: true,
-  },
-  m_name: {
-    type: String,
-    required: true,
-  },
+  }
 });
 const userModel = new mongoose.model("User", userSchema);
 
@@ -61,6 +57,7 @@ export const saveUser = (req, res) => {
   const newUser = new userModel(req.body);
   newUser.save((err) => {
     if (err) {
+      console.log("err",err)
       res.status(500).json({
         error: "There is an error!",
       });
@@ -107,10 +104,9 @@ export const updateUser = async (req, res) => {
       {
         $set: {
           name: req.body.name,
-          age: req.body.age,
-          address: req.body.address,
-          f_name: req.body.f_name,
-          m_name: req.body.m_name,
+          age: req.body.phone,
+          f_name: req.body.email,
+          address: req.body.address
         },
       },
       (err) => {

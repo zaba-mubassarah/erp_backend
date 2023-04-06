@@ -53,17 +53,27 @@ export const getUserById = async (req, res) => {
     })
     .clone();
 };
-export const saveUser = (req, res) => {
+export const saveUser = async (req, res) => {
   const newUser = new userModel(req.body);
   newUser.save((err) => {
     if (err) {
-      console.log("err",err)
+      console.log("err", err)
       res.status(500).json({
         error: "There is an error!",
       });
     } else {
-      res.status(200).json({
-        message: "User is inserted successfully",
+      userModel.find((err, users) => {
+        if (err) {
+          console.log("err", err);
+          res.status(500).json({
+            error: "There is an error!",
+          });
+        } else {
+          res.status(200).json({
+            message: "User is inserted successfully",
+            result: users
+          });
+        }
       });
     }
   });

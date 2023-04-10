@@ -6,6 +6,7 @@ import issueRoutes from "./routes/issues.js";
 import usersRoute from "./routes/users.js";
 import signUpRoutes from "./routes/signUp.js";
 import loginRoutes from "./routes/login.js";
+import categoryRoutes from "./routes/category.js";
 const app = express();
 dotenv.config();
 import cors from "cors";
@@ -24,6 +25,7 @@ app.use("/issues", cors(), issueRoutes);
 app.use("/users", cors(), usersRoute);
 app.use("/signup", cors(), signUpRoutes);
 app.use("/login", cors(), loginRoutes);
+app.use("/category", cors(), categoryRoutes);
 app.listen(PORT, () =>
   console.log(`Server running on port: http://localhost:${PORT}`)
 );

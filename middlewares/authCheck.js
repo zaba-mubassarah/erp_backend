@@ -4,11 +4,8 @@ export const authCheck = (req, res, next) => {
   console.log("authoraization", authoraization);
   try {
     const token = authoraization.split(" ")[1];
-    console.log("authoraization ssddsds", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const { name } = decoded;
-
     req.name = name;
     next();
   } catch {

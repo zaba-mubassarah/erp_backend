@@ -114,8 +114,8 @@ export const updateUser = async (req, res) => {
       {
         $set: {
           name: req.body.name,
-          age: req.body.phone,
-          f_name: req.body.email,
+          phone: req.body.phone,
+          email: req.body.email,
           address: req.body.address
         },
       },

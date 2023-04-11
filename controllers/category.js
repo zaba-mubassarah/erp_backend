@@ -61,14 +61,20 @@ export const insertManyCategory = async (req, res) => {
     }
   });
 };
-export const deleteCategory = (req, res) => {
-  const { id } = req.params;
-
-  categories = categories.filter((item) => {
-    return item.id !== id;
-  });
-
-  res.send(`categories of id ${id} is deleted`);
+export const deleteCategory = async (req, res) => {
+  await categoryModel
+    .deleteOne({ _id: req.params.id }, (err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There is an error!",
+        });
+      } else {
+        res.status(200).json({
+          message: "User deleted succesfully",
+        });
+      }
+    })
+    .clone();
 };
 
 export const updateCategory = async (req, res) => {
@@ -88,7 +94,7 @@ export const updateCategory = async (req, res) => {
           });
         } else {
           res.status(200).json({
-            message: "Categories are updated successfully",
+            message: "Category updated successfully",
           });
         }
       }

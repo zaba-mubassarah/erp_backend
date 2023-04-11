@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 export const authCheck = (req, res, next) => {
   const { authoraization } = req.headers;
-  console.log("authoraization", authoraization);
   try {
     const token = authoraization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -9,6 +8,9 @@ export const authCheck = (req, res, next) => {
     req.name = name;
     next();
   } catch {
-    next("Authentication Failed!");
+    res.status(401).json({
+      status:401,
+      error: "Authentication Failed!",
+    });
   }
 };
